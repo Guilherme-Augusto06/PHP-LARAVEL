@@ -30,6 +30,6 @@ class ContatoController extends Controller
         ]);
 
         // Retornando uma resposta adequada
-        return redirect()->route('site.contato')->with('sucesso', 'Contato enviado com sucesso!');
+        return redirect()->route('site.index');
     }
 }
