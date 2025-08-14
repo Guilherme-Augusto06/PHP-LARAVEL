@@ -40,7 +40,12 @@ class LoginController extends Controller
 
         if (auth()->attempt($credentials)) {
             // Login bem-sucedido
-            return redirect()->route('app.clientes');
+            session_start();
+            $_SESSION['name'] = auth()->user()->name;
+            $_SESSION['usuario'] = auth()->user()->email;
+
+            return redirect()->route('site.index');
+
         } else {
             // Login falhou
             return redirect()->route('site.login')

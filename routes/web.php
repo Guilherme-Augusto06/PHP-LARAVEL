@@ -30,14 +30,13 @@ Route::post('/contato', [ContatoController::class, 'salvar'])->name('site.contat
 Route::get('/login', [LoginController::class, 'index'])->name('site.login');
 Route::post('/login', [LoginController::class, 'autenticar'])->name('site.login');
 
-Route::prefix('/app')->group(function () {
-    Route::get('/clientes', function () {
-        return 'Clientes';
-    })->name('app.clientes');
-    Route::get('/fornecedores', [FornecedorController::class, 'index'])->name('app.fornecedores');
-    Route::get('/produtos', function () {
-        return 'produtos';
-    })->name('app.produtos');
+Route::prefix('/app')->middleware('log.acesso')->group(function () {
+    Route::get('/home', [HomeController::class, 'index'])->name('app.home');
+    Route::get('/sair', [LoginController::class, 'sair'])->name('app.sair');
+    Route::get('/cliente', [ClienteController::class, 'sair'])->name('app.cliente');
+
+    Route::get('/fornecedore', [FornecedorController::class, 'index'])->name('app.fornecedore');
+    Route::get('/produto', [ProdutoController::class, 'index'])->name('app.produto');
 });
 
 Route::get('/teste/{p1}/{p2}', [TesteController::class, 'teste'])->name('site.teste');
