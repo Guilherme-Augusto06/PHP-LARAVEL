@@ -15,6 +15,18 @@ class LogAcessoMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
+        // Inicia a sessão caso não tenha sido iniciada
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        // Verifica se usuário não está logado
+        if (!isset($_SESSION['usuario'])) {
+            return redirect()->route('site.login')
+                ->withErrors(['acesso' => 'Você precisa estar logado para acessar essa página.']);
+        }
+
+        // Continua a requisição se estiver logado
         return $next($request);
     }
 }
