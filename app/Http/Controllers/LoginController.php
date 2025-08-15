@@ -44,7 +44,7 @@ class LoginController extends Controller
             $_SESSION['name'] = auth()->user()->name;
             $_SESSION['usuario'] = auth()->user()->email;
 
-            return redirect()->route('site.index');
+            return redirect()->route('app.home');
 
         } else {
             // Login falhou
@@ -52,5 +52,15 @@ class LoginController extends Controller
                 ->withErrors(['login' => 'Email ou senha incorretos'])
                 ->withInput($request->only('usuario'));
         }
+    }
+    public function sair() {
+        // Usar Laravel Auth para logout
+        auth()->logout();
+
+        // Limpar a sessão
+        session_destroy();
+
+        // Redirecionar para a página inicial
+        return redirect()->route('site.index');
     }
 }

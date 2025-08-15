@@ -1,45 +1,31 @@
-<h3>Fornecedor</h3>
+@extends('app.layouts.basico')
 
-@php
-    /*
-    if(empty($variavel)) {} //retornar true se a variável estiver vazia
-    - ''
-    - 0
-    - 0.0
-    - '0'
-    - null
-    - false
-    - array()
-    - $var
-    */
-@endphp
+@section('titulo', 'Cliente')
 
-@isset($fornecedores)
+@section('conteudo')
+    <div class="conteudo-pagina">
+        <div class="titulo-pagina-2">
+            <p>Fornecedor</p>
+        </div>
+        <div class="menu">
+            <ul>
+                <li><a href="">Novo</a></li>
+                <li><a href="">Consulta</a></li>
+            </ul>
+        </div>
+        <div class="informacao-pagina">
+            <div style="width: 30%; margin-left: auto; margin-right: auto;" >
+                <form action="{{ route('app.fornecedor.listar') }}" method="post">
+                    @csrf
+                    <input type="text" name="nome" placeholder="Nome" class="borda-preta">
+                    <input type="text" name="site" placeholder="Site" class="borda-preta">
+                    <input type="text" name="uf" placeholder="UF" class="borda-preta">
+                    <input type="text" name="email" placeholder="E-mail" class="borda-preta">
+                    <button type="submit" class="borda-preta">Pesquisar</button>
+                </form>
+            </div>
+        </div>
+    </div>
 
-    @forelse($fornecedores as $indice => $fornecedor)
-        Iteração atual: {{ $loop->iteration }}
-        <br>
-        Fornecedor: {{ $fornecedor['nome'] }}
-        <br>
-        Status: {{ $fornecedor['status'] }}
-        <br>
-        CNPJ: {{ $fornecedor['cnpj'] ?? '' }}
-        <br>
-        Telefone: ({{ $fornecedor['ddd'] ?? '' }}) {{ $fornecedor['telefone'] ?? '' }}
-        <br>
-        @if($loop->first)
-            Primeira iteração no loop
-
-            <br>
-            Total de registros: {{ $loop->count }}
-        @endif
-
-        @if($loop->last)
-            Última iteração no loop
-        @endif
-        <hr>
-    @empty
-        Não existem fornecedores cadastrados!!!
-    @endforelse
-@endisset
-
+@endsection
+a
