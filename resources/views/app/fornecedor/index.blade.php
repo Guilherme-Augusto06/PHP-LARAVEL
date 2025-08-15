@@ -9,8 +9,8 @@
         </div>
         <div class="menu">
             <ul>
-                <li><a href="">Novo</a></li>
-                <li><a href="">Consulta</a></li>
+                <li><a href="{{ route('app.fornecedor.adicionar') }}">Novo</a></li>
+                <li><a href="{{ route('app.fornecedor') }}">Consulta</a></li>
             </ul>
         </div>
         <div class="informacao-pagina">
@@ -21,6 +21,7 @@
                     <input type="text" name="site" placeholder="Site" class="borda-preta">
                     <input type="text" name="uf" placeholder="UF" class="borda-preta">
                     <input type="text" name="email" placeholder="E-mail" class="borda-preta">
+                    <input type="text" name="regiao" placeholder="Região" class="borda-preta">
                     <button type="submit" class="borda-preta">Pesquisar</button>
                 </form>
             </div>
@@ -28,4 +29,4 @@
     </div>
 
 @endsection
-a
+
