@@ -19,16 +19,17 @@ class FornecedorController extends Controller
             ->where('uf', 'like', '%' . $request->input('uf'))
             ->where('email', 'like', '%' . $request->input('email'))
             ->where('regiao', 'like', '%' . $request->input('regiao'))
-            ->get();
+            ->paginate(2);
 
         return view('app.fornecedor.listar', [
             'fornecedores' => $fornecedores,
+            'request' => $request->all()
         ]);
     }
 
     public function adicionar(Request $request)
     {
-        if ($request->input('_token') != '') {
+        if ($request->input('_token') != '' && $request->input('id') == '') {
             $regras = [
                 'nome' => 'required|min:3|max:40',
                 'site' => 'required|min:3|max:100',
@@ -51,15 +52,35 @@ class FornecedorController extends Controller
 
             $request->validate($regras, $feedback);
 
-            // Criar o fornecedor
             Fornecedor::create($request->all());
 
-
-            // Redirecionar com mensagem de sucesso
             return redirect()->route('app.fornecedor.adicionar')
                 ->with('success', 'Fornecedor adicionado com sucesso!');
         }
 
-        return view('app.fornecedor.adicionar');
+        if ($request->input('_token') != '' && $request->input('id') != '') {
+            $fornecedor = Fornecedor::find($request->input('id'));
+            $update = $fornecedor->update($request->all());
+
+            if($update) {
+                return redirect()->route('app.fornecedor.adicionar')
+                    ->with('success', 'Fornecedor atualizado com sucesso!');
+            } else {
+                return redirect()->back()
+                    ->with('error', 'Erro ao atualizar fornecedor.');
+            }
+        }
+
+        return view('app.fornecedor.adicionar', ['fornecedor' => null]);
+    }
+    public function editar($id) {
+        $fornecedor = Fornecedor::find($id);
+
+        return view('app.fornecedor.adicionar', [
+            'fornecedor' => $fornecedor,
+        ]);
+
+
+
     }
 }

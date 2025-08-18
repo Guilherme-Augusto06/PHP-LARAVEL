@@ -36,11 +36,12 @@
                             <td>{{ $fornecedor->email }}</td>
                             <td>{{ $fornecedor->regiao }}</td>
                             <td>Excluir</td>
-                            <td>Editar</td>
+                            <td><a href="{{ route('app.fornecedor.editar', $fornecedor->id) }}">Editar</a></td>
                         </tr>
                     @endforeach
                     </tbody>
                 </table>
+                {{ $fornecedores->appends($request)->links('pagination::simple-default') }}
 
             </div>
         </div>

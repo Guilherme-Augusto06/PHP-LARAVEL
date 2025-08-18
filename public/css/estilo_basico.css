@@ -194,3 +194,9 @@ button:hover {
 .redes-sociais img {
     margin: 0px 15px 0px 15px;
 }
+
+.pagination li{
+    display: inline;
+    float: left;
+    margin-right: 5px;
+}
