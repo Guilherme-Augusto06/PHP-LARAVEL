@@ -10,6 +10,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ProdutoController;
+use App\Http\Controllers\DetalheController;
 use App\Http\Middleware\LogAcessoMiddleware;
 
 /*
@@ -46,6 +47,8 @@ Route::prefix('/app')->middleware('log.acesso')->group(function () {
     Route::get('fornecedor/excluir/{id}', [FornecedorController::class, 'excluir'])->name('app.fornecedor.excluir');
 
     Route::resource('produto', ProdutoController::class);
+
+    Route::resource('produto-detalhe', DetalheController::class);
 
 });
 
